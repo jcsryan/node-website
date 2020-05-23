@@ -1,57 +1,138 @@
 const inquirer = require('inquirer');
-const fs = require('fs')
-const generatePage = require('./src/page-template')
-let pushArray = []
+const generatePage = require('./src/page-template');
+const fs = require('fs');
 
-const promptProject = portfolioData => {
-   
-    if(!portfolioData){
-       pushArray = [];
-    }
 
- return inquirer
-.prompt([
-    {
+PromptUser = () => {
+    return inquirer.prompt([
+      {
         type: 'input',
-        name: 'position',
-        message: 'What is your position?: ',
-    },
-    {
+        name: 'name',
+        message: 'What is your name? (Required)',
+        validate: nameInput => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log('Please enter your name!');
+            return false;
+          }
+        }
+      },
+      {
         type: 'input',
         name: 'github',
-        message: 'What is your github address?: ',
-    },
-    {
+        message: 'Enter your GitHub Username'
+      },
+      {
+        type: 'input',
+        name: 'id',
+        message: 'What is your ID number?:'
+      },
+      {
         type: 'input',
         name: 'email',
-        message: 'What is your email address?',
-    },
-    {
-        type: 'confirm',
-        name: 'confirmAddUser',
-        message: "Would you like to enter another user?",
-        default: false
-    }
-])
-
-/* .then(projectData => {
-    pushArray.push(projectData);
-    if (projectData.confirmAddProject) {
-      return promptProject(portfolioData)
-    } else {
-        return portfolioData;
+        message: 'enter your email?',
+        
+      },
+      {
+       type: 'checkbox',
+       name: 'position',
+       message: 'Enter your position',
+       choices: ['Manager']
       }
-    }); */
+    ]);
 }
 
-    promptProject()
-    .then(portfolioData =>{ 
-        const pageHTML = generatePage(portfolioData)
-    .then(
+
+
+
+promptProject = portfolioData => {
+    if (!portfolioData.projects) {
+      portfolioData.projects = [];
+    }
+    console.log(`
+  =================
+    New Employee
+  =================
+  `);
+    return inquirer.prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is the employee name?',
+        validate: nameInput => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log('Please enter a name!');
+            return false;
+          }
+        }
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'Provide employee ID',
+        validate: nameInput => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log('Please enter the ID!');
+            return false;
+          }
+        }
+      },
+      {
+        type: 'checkbox',
+        name: 'languages',
+        message: 'What is the employee position?',
+        choices: ['Engineer', 'Intern']
+      },
+      {
+        type: 'input',
+        name: 'link',
+        message: 'Enter the employee GitHub name (Required)',
+        validate: nameInput => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log('Please enter the name.');
+            return false;
+          }
+        }
+      },
+      {
+        type: 'input',
+        name: 'feature',
+        message: 'Enter employee email',
+      },
+      {
+        type: 'confirm',
+        name: 'confirmAddProject',
+        message: 'Would you like to enter another project?',
+        default: false
+      }
+    ]).then(projectData => {
+      portfolioData.projects.push(projectData);
+      if (projectData.confirmAddProject) {
+        return promptProject(portfolioData);
+      } else {
+        return portfolioData;
+      }
+    });
+    
+  
+  }  
+
+
+PromptUser()
+  .then(promptProject)
+  .then(portfolioData => {
+     const pageHTML = generatePage(portfolioData);
+
     fs.writeFile('./index.html', pageHTML, err => {
-        if(err) throw new Error(err);
-        console.log('Page created! Check out index.html in this directory to see it!');
-    }))
-    
-    
-})
+      if (err) throw new Error(err);
+
+     console.log('Page created! Check out index.html in this directory to see it!');
+     });
+  });
