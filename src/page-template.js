@@ -12,13 +12,13 @@ const generateAbout = aboutText => {
 };
 
 
+
 const generateProjects = projectsArr => {
   return `
   
       ${projectsArr.filter(({ feature }) => feature)
         .map(({ name, description, languages, link, feature }) => {
           return `
-
   <div class="col-md-3">
     <div class="card text-center border-primary mb-3" style="width: 18rem;">
         <div class="card-header">${name}</div>
@@ -30,18 +30,21 @@ const generateProjects = projectsArr => {
         </ul>
     </div>
     </div>
-
         `;
         })
         .join('')}
-
   `;
 };
 
 
 module.exports = templateData => {
-  // destructure page data by section
   const { projects, about, ...header } = templateData;
+  managerObj = templateData[0]
+  engineerObj = templateData[1]
+  internObj = templateData[2]
+
+  console.log(managerObj.name)
+
 
   return `
   <!DOCTYPE html>
@@ -73,25 +76,65 @@ module.exports = templateData => {
 
   <div class="col-md-3">
   <div class="card text-center border-primary mb-3" style="width: 18rem;">
-      <div class="card-header">${header.name}</div>
-      <div class="card-body>
+      <div class="card-header">${managerObj.name}</div>
+      <div class="card-body">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">${header.position}</li>
-        <li class="list-group-item">${header.id}</li>
-        <li class="list-group-item">${header.github}</li>
-        <li class="list-group-item"><a href="mailto:${header.email}">${header.email}</a></li>
+        <li class="list-group-item">${managerObj.id}</li>
+        <li class="list-group-item">${managerObj.officeNum}</li>
+        
+        <li class="list-group-item"><a href="mailto:${managerObj.email}">${managerObj.email}</a></li>
       </ul>
       </div>
   </div>
   </div>
 
-   
-    ${generateProjects(projects)}
+  <div class="col-md-3">
+  <div class="card text-center border-primary mb-3" style="width: 18rem;">
+      <div class="card-header">${engineerObj.name}</div>
+      <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">${engineerObj.id}</li>
+        <li class="list-group-item">${engineerObj.github}</li>
+        
+        <li class="list-group-item"><a href="mailto:${engineerObj.email}">${engineerObj.email}</a></li>
+      </ul>
+      </div>
+  </div>
+  </div>
 
+
+  <div class="col-md-3">
+  <div class="card text-center border-primary mb-3" style="width: 18rem;">
+      <div class="card-header">${engineerObj.name}</div>
+      <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">${engineerObj.id}</li>
+        <li class="list-group-item">${engineerObj.github}</li>
+        
+        <li class="list-group-item"><a href="mailto:${engineerObj.email}">${engineerObj.email}</a></li>
+      </ul>
+      </div>
+  </div>
+  </div>
+  
+
+  <div class="col-md-3">
+  <div class="card text-center border-primary mb-3" style="width: 18rem;">
+      <div class="card-header">${internObj.name}</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">${internObj.id}</li>
+        <li class="list-group-item">${internObj.school}</li>
+        <li class="list-group-item"><a href="mailto:${internObj.email}">${internObj.email}</a></li>
+      </ul>
+  </div>
+  </div>
+
+
+ 
 
   </div>
   </div>
-   <p>${new Date().getFullYear()} by ${header.name}</p>
+   <p>${new Date().getFullYear()} by ${managerObj.name}</p>
   
   </body>
   </html>
