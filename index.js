@@ -1,3 +1,5 @@
+//all require constants
+
 const inquirer = require('inquirer');
 const generatePage = require('./src/page-template');
 const fs = require('fs');
@@ -6,8 +8,14 @@ const Manager = require('../node-website/lib/Manager')
 const Engineer = require('../node-website/lib/Engineer')
 const Intern = require('../node-website/lib/Intern')
 
+//empty array I push the user data into creating multiple objects within the array.
 let portfolioData = [];
 
+
+//called at the end of inquirer prompts, givews selection of intern or engineer
+//if either is called, runs the related inquirer prompt and saves that data to 
+//portfolio data, if 'No' is called it created the index file and exports my 
+//portfolio data to the page-template.js file
 const chooseRole = () => {
    inquirer.prompt([
     {
@@ -32,7 +40,9 @@ const chooseRole = () => {
   })
 }
 
-
+//inquirer prompt if Engineer is chosen. the .then() at the bottom of the following
+//3 prompts creates a lower-case version of the object as a variable with the user data
+// and pushes it to portfoliodata.
 Engineer.prototype.PromptEngineer = () => {
   return inquirer.prompt([
     {
@@ -73,6 +83,8 @@ Engineer.prototype.PromptEngineer = () => {
   })
 }
 
+
+//inquirer prompt if intern is chosen
 Intern.prototype.PromptIntern = () => {
   return inquirer.prompt([
     {
@@ -113,7 +125,8 @@ Intern.prototype.PromptIntern = () => {
 }
 
 
-
+//Inquirer prompt that automatically runs if node index.js is called in console
+//will only run once per call as there can be only one manager.
 Manager.prototype.PromptUser = () => {
   return inquirer.prompt([
     {
@@ -155,5 +168,5 @@ Manager.prototype.PromptUser = () => {
 
 
 
-
+//calling the Manager prompt.
 Manager.prototype.PromptUser()

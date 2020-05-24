@@ -1,49 +1,15 @@
-// create the about section
-const generateAbout = aboutText => {
-  if (!aboutText) {
-    return '';
-  }
-
-  return `
-
-  ${aboutText}
- 
-  `;
-};
-
-
-
-const generateProjects = projectsArr => {
-  return `
-  
-      ${projectsArr.filter(({ feature }) => feature)
-        .map(({ name, description, languages, link, feature }) => {
-          return `
-  <div class="col-md-3">
-    <div class="card text-center border-primary mb-3" style="width: 18rem;">
-        <div class="card-header">${name}</div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">${languages.join(', ')}</li>
-          <li class="list-group-item">${description}</li>
-          <li class="list-group-item">${link}</li>
-          <li class="list-group-item"><a href="mailto:${feature}">${feature}</a></li>
-        </ul>
-    </div>
-    </div>
-        `;
-        })
-        .join('')}
-  `;
-};
-
+// deconstruct templateData into each object, Manager, Engineer, Intern by calling them at their index
+// and assigning a new variable to that call. Then returns the HTML layout for the webpage with those key
+//value pairs called to dynamically populate the HTML framework.
 
 module.exports = templateData => {
   const { projects, about, ...header } = templateData;
   managerObj = templateData[0]
   engineerObj = templateData[1]
-  internObj = templateData[2]
+  engineerObj2 = templateData[2]
+  internObj = templateData[3]
 
-  console.log(managerObj.name)
+  console.log(templateData)
 
 
   return `
@@ -65,7 +31,7 @@ module.exports = templateData => {
   <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4">OOP project</h1>
-    <p class="lead">A simple node generated layout</p>
+    <p class="lead">A simple node generated layout with objects and jest testing</p>
   </div>
 </div>
 
@@ -75,12 +41,12 @@ module.exports = templateData => {
 <div class="row">
 
   <div class="col-md-3">
-  <div class="card text-center border-primary mb-3" style="width: 18rem;">
-      <div class="card-header">${managerObj.name}</div>
+  <div class="card text-center border-primary mb-3 bg-info" style="width: 18rem;">
+      <div class="card-header">Name: ${managerObj.name}</div>
       <div class="card-body">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">${managerObj.id}</li>
-        <li class="list-group-item">${managerObj.officeNum}</li>
+        <li class="list-group-item">ID: ${managerObj.id}</li>
+        <li class="list-group-item">Office Num:${managerObj.officeNum}</li>
         
         <li class="list-group-item"><a href="mailto:${managerObj.email}">${managerObj.email}</a></li>
       </ul>
@@ -89,12 +55,12 @@ module.exports = templateData => {
   </div>
 
   <div class="col-md-3">
-  <div class="card text-center border-primary mb-3" style="width: 18rem;">
-      <div class="card-header">${engineerObj.name}</div>
+  <div class="card text-center border-primary mb-3 bg-info" style="width: 18rem;">
+      <div class="card-header">Name: ${engineerObj.name}</div>
       <div class="card-body">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">${engineerObj.id}</li>
-        <li class="list-group-item">${engineerObj.github}</li>
+        <li class="list-group-item">ID: ${engineerObj.id}</li>
+        <li class="list-group-item">Github: ${engineerObj.github}</li>
         
         <li class="list-group-item"><a href="mailto:${engineerObj.email}">${engineerObj.email}</a></li>
       </ul>
@@ -104,14 +70,14 @@ module.exports = templateData => {
 
 
   <div class="col-md-3">
-  <div class="card text-center border-primary mb-3" style="width: 18rem;">
-      <div class="card-header">${engineerObj.name}</div>
+  <div class="card text-center border-primary mb-3 bg-info" style="width: 18rem;">
+      <div class="card-header">Name: ${engineerObj2.name}</div>
       <div class="card-body">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">${engineerObj.id}</li>
-        <li class="list-group-item">${engineerObj.github}</li>
+        <li class="list-group-item">ID: ${engineerObj2.id}</li>
+        <li class="list-group-item">Github: ${engineerObj2.github}</li>
         
-        <li class="list-group-item"><a href="mailto:${engineerObj.email}">${engineerObj.email}</a></li>
+        <li class="list-group-item"><a href="mailto:${engineerObj2.email}">${engineerObj2.email}</a></li>
       </ul>
       </div>
   </div>
@@ -119,11 +85,11 @@ module.exports = templateData => {
   
 
   <div class="col-md-3">
-  <div class="card text-center border-primary mb-3" style="width: 18rem;">
-      <div class="card-header">${internObj.name}</div>
+  <div class="card text-center border-primary mb-3 bg-info" style="width: 18rem;">
+      <div class="card-header">Name: ${internObj.name}</div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">${internObj.id}</li>
-        <li class="list-group-item">${internObj.school}</li>
+        <li class="list-group-item">ID: ${internObj.id}</li>
+        <li class="list-group-item">School: ${internObj.school}</li>
         <li class="list-group-item"><a href="mailto:${internObj.email}">${internObj.email}</a></li>
       </ul>
   </div>

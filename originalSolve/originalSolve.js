@@ -1,11 +1,12 @@
 
 const inquirer = require('inquirer');
-const generatePage = require('./src/page-template');
+const generatePage = require('../src/page-template');
 const fs = require('fs');
-const Employee = require('../node-website/lib/Employee')
+const Employee = require('../lib/Employee')
 
 
-
+//This was the original way I solved the project, but because it
+//didn't use classes I discarded it and worked on what I have now.
 
  PromptUser = () => {
     return inquirer.prompt([
